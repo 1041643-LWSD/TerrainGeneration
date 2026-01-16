@@ -1,9 +1,12 @@
 public class NoiseMapRunner {
 	public static void main(String[] args) {
-		NoiseMap map = new NoiseMap(100, .999);
 		StdDraw.enableDoubleBuffering();
-		map.drawNoiseMap();
-		StdDraw.show();
-		System.out.println("Drew the noise map!");
+		for(int step = 0; step < 1000; step ++) {
+			double i = step/1000.0;
+			NoiseMap map = new NoiseMap(200, i);
+			map.drawNoiseMap();
+			System.out.println("Drew map with gradient " + i);
+			StdDraw.show();
+		}
 	}
 }

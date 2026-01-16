@@ -4,34 +4,35 @@ public class NoiseMap {
 	
 	public NoiseMap (int resolution, double gradient) {
 		map = new double[resolution][resolution];
+		
+		//fill in all of the cells
 		for(int i = 0; i < resolution; i++) {
 			for(int j = 0; j < resolution; j++) {
 				int numNeighbors = 0;
-				int totalNeighborShade = 0;
+				double totalNeighborShade = 0.0;
+				//these two for loops check the neighbors around our cell
 				for(int x = -1; x <= 1; x++) {
 					for(int y = -1; y <= 1; y++) {
-						if((x != 0 || y != 0)) {
+						if(!(x == 0 && y == 0)) {
 							int newX = x + i;
 							int newY = y + j;
 							if(newX >= 0 && newX < resolution && newY >= 0 && newY < resolution) {
-								if(map[x + i][y + j] != 0.0) {
+								if(map[newX][newY] != 0.0) {
 									numNeighbors++;
-									totalNeighborShade += map[x + i][y + j];
+									totalNeighborShade += map[newX][newY];
 								}
 							}
 						}
 					}
 				}
-				if(numNeighbors == 0) {
+				//make random points if the gradient is 1
+				if(numNeighbors == 0 || gradient == 1) {
 					map[i][j] = Math.random();
-					System.out.println("Made a random point!");
 				} else {
-					map[i][j] = totalNeighborShade/numNeighbors + (gradient/2.0 - Math.random() * gradient);
-					while(map[i][j] > 1 || map[i][j] < 0) {
+					do {
 						map[i][j] = totalNeighborShade/numNeighbors + (gradient/2.0 - Math.random() * gradient);
-					}
+					} while(map[i][j] < 0 || map[i][j] > 1);			
 				}
-				System.out.println(map[i][j]);
 			}
 		}
 		this.resolution = resolution;
