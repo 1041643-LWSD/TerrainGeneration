@@ -12,7 +12,6 @@ public class Ray {
 	}
 	
 	public boolean collidingWithBox(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax) {
-		double t = (xMin - x)/directionVector[0];
-		double point[] = new double[]
+		
 	}
 }
