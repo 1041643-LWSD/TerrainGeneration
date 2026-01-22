@@ -23,6 +23,14 @@ public class Renderer {
 	}
 	
 	public void castRay(double x, double y, double xDir, double yDir) {
-		
+		Ray ray = new Ray(x, y, z, xDir, yDir);
+		for(int i = 0; i < terrain.getResolution()) {
+			for(int j = 0; j < terrain.getResolution()) {
+				double boxHeight = terrain.getHeightAt(i, j);
+				if(ray.collidingWithBox(i, i + 1, j, j + 1, boxHeight, boxHeight + 1)) {
+					//draw pixel
+				}
+			}
+		}
 	}
 }

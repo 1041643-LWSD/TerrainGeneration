@@ -48,4 +48,12 @@ public class NoiseMap {
 			}
 		}
 	}
+
+	public double getHeightAt(int x, int y) {
+		return map[x][y];
+	}
+
+	public int getResolution() {
+		return resolution;
+	}
 }
