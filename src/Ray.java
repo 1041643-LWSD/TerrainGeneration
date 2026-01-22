@@ -11,37 +11,58 @@ public class Ray {
 		this.z = z;
 	}
 	
-	public boolean collidingWithBox(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax) {
+	public double collidingWithBox(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax) {
 		double t = (xMin - x) / directionVector[0];
 		Point point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
 		t = (xMax - x) / directionVector[0];
 		point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
 		t = (yMin - y) / directionVector[1];
 		point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
 		t = (yMax - y) / directionVector[1];
 		point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
 		t = (zMin - z) / directionVector[2];
 		point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
 		t = (zMax - z) / directionVector[2];
 		point = new Point(x + directionVector[0] * t, y + directionVector[1] * t, z + directionVector[2] * t);
 		if (point.inBox(xMin, xMax, yMin, yMax, zMin, zMax)) {
-			return true;
+			if(t > 0) {
+				return t;
+			}
 		}
-		return false;
+		return -1;
+	}
+	
+	public double getDistance(double t) {
+		double x1 = x + directionVector[0] * t;
+		double y1 = y + directionVector[1] * t;
+		double z1 = z + directionVector[2] * t;
+		return Math.sqrt((x - x1) * (x - x1) + 
+				(y - y1) * (y - y1) +
+				(z - z1) * (z - z1));
 	}
 }

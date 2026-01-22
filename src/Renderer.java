@@ -26,16 +26,21 @@ public class Renderer {
 	}
 	
 	public void updateScreen(double x, double y, double xDir, double yDir) {
-
+		for(int i = (int) -xRESOLUTION/2; i < (int) xRESOLUTION/2; i++) {
+			for(int j = (int) -yRESOLUTION/2; j < (int) xRESOLUTION/2; j++) {
+				
+			}
+		}
 	}
 	
-	public void castRay(double x, double y, double xDir, double yDir) {
+	public double castRay(double x, double y, double xDir, double yDir, int screenX, int screenY) {
 		Ray ray = new Ray(x, y, z, xDir, yDir);
+		double minDistance = 10
 		for(int i = 0; i < terrain.getResolution(); i++) {
 			for(int j = 0; j < terrain.getResolution(); j++) {
-				double boxHeight = terrain.getHeightAt(i, j);
-				if(ray.collidingWithBox(i, i + 1, j, j + 1, boxHeight, boxHeight + 1)) {
-					
+				double t = ray.collidingWithBox(i, i + 1, j, j + 1, 0, terrain.getHeightAt(i, j);
+				if(t != -1) {
+					if(minDistance = 0)
 				}
 			}
 		}
