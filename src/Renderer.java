@@ -37,6 +37,14 @@ public class Renderer {
 		this.x += distance;
 	}
 
+	public void moveForward(double distance) {
+		this.y += distance;
+	}
+
+	public void moveBackward(double distance) {
+		this.y -= distance;
+	}
+
 	public void turnLeft(double angle) {
 		this.xDir -= angle;
 	}
@@ -83,20 +91,58 @@ public class Renderer {
 		}
 	}
 	
-	public double castRay(double xDirection, double yDirection) {
-		Ray ray = new Ray(x, y, this.z, xDirection, yDirection);
-		double minDistance = 100000;
-		for(int i = 0; i < terrain.getResolution(); i++) {
-			for(int j = 0; j < terrain.getResolution(); j++) {
-				double t = ray.collidingWithBox(i, i + 1, j, j + 1, 0, terrain.getHeightAt(i, j));
-				if(t != -1) {
-					double distance = ray.getDistance(t);
-					if(distance < minDistance) {
-						minDistance = distance;
-					}
-				}
+	public double castRay(double yawDeg, double pitchDeg) {
+		double yaw   = Math.toRadians(yawDeg);
+		double pitch = Math.toRadians(pitchDeg);
+
+		double dx = Math.cos(pitch) * Math.cos(yaw);
+		double dy = Math.cos(pitch) * Math.sin(yaw);
+		double dz = Math.sin(pitch);
+
+		double step = 0.05;
+		double maxDist = 100;
+
+		double rx = x;
+		double ry = y;
+		double rz = z;
+
+		for (double dist = 0; dist < maxDist; dist += step) {
+			rx += dx * step;
+			ry += dy * step;
+			rz += dz * step;
+
+			int gx = (int) rx;
+			int gy = (int) ry;
+
+			if (gx < 0 || gy < 0 ||
+				gx >= terrain.getResolution() ||
+				gy >= terrain.getResolution())
+				return maxDist;
+
+			if (rz <= terrain.getHeightAt(gx, gy)) {
+				return dist;
 			}
 		}
-		return minDistance;
+		return maxDist;
+	}
+
+	public double getXDir() {
+		return xDir;
+	}
+
+	public double getYDir() {
+		return yDir;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getZ() {
+		return z;
 	}
 }

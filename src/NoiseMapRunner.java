@@ -1,36 +1,45 @@
 public class NoiseMapRunner {
 	public static void main(String[] args) {
 		Renderer renderer = new Renderer(new NoiseMap(200, .5));
+		double moveSpeed = .1;
+		double turnSpeed = 2;
 		while (true) { 					
 			if(StdDraw.hasNextKeyTyped()) {
 				char key = StdDraw.nextKeyTyped();
-				if(key == 'w') {
-					renderer.moveUp(1);
+				if(key == 'q') {
+					renderer.moveUp(moveSpeed);
 				}
-				if(key == 's') {
-					renderer.moveDown(1);
-				}
-				if(key == 'a') {
-					renderer.moveLeft(1);
+				if(key == 'e') {
+					renderer.moveDown(moveSpeed);
 				}
 				if(key == 'd') {
-					renderer.moveRight(1);
+					renderer.moveLeft(moveSpeed);
+				}
+				if(key == 'a') {
+					renderer.moveRight(moveSpeed);
 				}
 				if(key == 'i') {
-					renderer.turnUp(5);
+					renderer.turnUp(turnSpeed);
 				}
 				if(key == 'k') {
-					renderer.turnDown(5);
+					renderer.turnDown(turnSpeed);
 				}
 				if(key == 'j') {
-					renderer.turnLeft(5);
+					renderer.turnLeft(turnSpeed);
 				}
 				if(key == 'l') {
-					renderer.turnRight(5);
+					renderer.turnRight(turnSpeed);
+				}
+				if(key == 'w') {
+					renderer.moveForward(moveSpeed);
+				}
+				if(key == 's') {
+					renderer.moveBackward(moveSpeed);
 				}
 			}
 			renderer.updateScreen();
 			renderer.renderScreen();
+			System.out.println("X: " + renderer.getX() + " Y: " + renderer.getY() + " Z: " + renderer.getZ() + "xDir: " + renderer.getXDir() + " yDir: " + renderer.getYDir());
 		}
 
 
