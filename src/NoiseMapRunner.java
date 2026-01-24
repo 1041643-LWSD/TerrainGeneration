@@ -49,6 +49,12 @@ public class NoiseMapRunner {
 				} if(key == '2') {
 					renderer.decreaseResolution();
 				}
+				if(key == 'z') {
+					renderer.increaseFOV();
+				}
+				if(key == 'x') {
+					renderer.decreaseFOV();
+				}
 			}
 			renderer.updateScreen();
 			renderer.renderScreen(onMap);

@@ -76,7 +76,7 @@ public class Renderer {
 					}
 					StdDraw.setPenColor(shade, shade, shade);
 					StdDraw.setPenRadius(1.0 / xResolution);
-					StdDraw.point((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2));
+					StdDraw.filledSquare((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2), 1/xResolution);
 				}
 			}
 			StdDraw.show();
@@ -91,7 +91,7 @@ public class Renderer {
 					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1;
 				}
 				else {
-					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1.0 / (Math.sqrt(distance));
+					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1.0 / (distance);
 				}
 			}
 		}
@@ -136,7 +136,7 @@ public class Renderer {
 		StdDraw.enableDoubleBuffering();
 		terrain.drawNoiseMap();
 		StdDraw.setPenColor(StdDraw.RED);
-		StdDraw.setPenRadius((double) 5/terrain.getResolution());
+		StdDraw.setPenRadius((double) 3/terrain.getResolution());
 		StdDraw.point(x/terrain.getResolution(), y/terrain.getResolution());
 		StdDraw.show();
 	}
@@ -179,5 +179,22 @@ public class Renderer {
 		}
 		screen = new double[(int)xResolution][(int)yResolution];
 		System.out.println("Decreased resolution to " + xResolution + " x " + yResolution);
+	}
+
+	public void increaseFOV() {
+		this.fov += 5;
+		System.out.println("Increased FOV to " + fov);
+	}
+
+	public void decreaseFOV() {
+		this.fov -= 5;
+		if(this.fov < 10) {
+			this.fov = 10;
+		}
+		System.out.println("Decreased FOV to " + fov);
+	}
+
+	public void increaseFOV(double amount) {
+		this.fov += amount;
 	}
 }
