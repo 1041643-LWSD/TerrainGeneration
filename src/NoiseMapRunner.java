@@ -44,6 +44,11 @@ public class NoiseMapRunner {
 				if(key == 'p') {
 					debug = !debug;
 				}
+				if(key == '1') {
+					renderer.increaseResolution();
+				} if(key == '2') {
+					renderer.decreaseResolution();
+				}
 			}
 			renderer.updateScreen();
 			renderer.renderScreen(onMap);
@@ -51,7 +56,6 @@ public class NoiseMapRunner {
 				System.out.println("X: " + renderer.getX() + " Y: " + renderer.getY() + " Z: " + renderer.getZ() + "xDir: " + renderer.getXDir() + " yDir: " + renderer.getYDir());
 			}
 		}
-
 
 		/*
 		StdDraw.enableDoubleBuffering();

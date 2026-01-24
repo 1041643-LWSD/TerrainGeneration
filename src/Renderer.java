@@ -6,9 +6,9 @@ public class Renderer {
 	private double x;
 	private double y;
 	private double z;
-	private final double xRESOLUTION = 120;
-	private final double yRESOLUTION = 120;
-	private final double FOV = 120;
+	private double xResolution = 120;
+	private double yResolution = 120;
+	private double fov = 120;
 	private double[][] screen;
 	
 	public Renderer(NoiseMap terrain) {
@@ -18,7 +18,7 @@ public class Renderer {
 		this.x = 0;
 		this.y = 0;
 		this.z = 0;	
-		screen = new double[(int)xRESOLUTION][(int)yRESOLUTION];
+		screen = new double[(int)xResolution][(int)yResolution];
 	}
 
 	public void moveUp(double distance) {
@@ -68,30 +68,30 @@ public class Renderer {
 			drawMap();
 		} else {
 			StdDraw.enableDoubleBuffering();
-			for(int i = 0; i < xRESOLUTION; i++) {
-				for(int j = 0; j < yRESOLUTION; j++) {
+			for(int i = 0; i < xResolution; i++) {
+				for(int j = 0; j < yResolution; j++) {
 					int shade = (int)(255 * screen[i][j]);
 					if(shade > 255) {
 						shade = 255;
 					}
 					StdDraw.setPenColor(shade, shade, shade);
-					StdDraw.setPenRadius(1.0 / xRESOLUTION);
-					StdDraw.point((double)i/xRESOLUTION + (double)1/(xRESOLUTION * 2), (double)j/yRESOLUTION + (double)1/(yRESOLUTION * 2));
+					StdDraw.setPenRadius(1.0 / xResolution);
+					StdDraw.point((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2));
 				}
 			}
 			StdDraw.show();
-	}
+		}
 	}
 	
 	public void updateScreen() {
-		for(int i = (int) -xRESOLUTION/2; i < (int) xRESOLUTION/2; i++) {
-			for(int j = (int) -yRESOLUTION/2; j < (int) yRESOLUTION/2; j++) {
-				double distance = castRay((FOV * i/xRESOLUTION + xDir), (FOV * j/yRESOLUTION + yDir));
+		for(int i = (int) -xResolution/2; i < (int) xResolution/2; i++) {
+			for(int j = (int) -yResolution/2; j < (int) yResolution/2; j++) {
+				double distance = castRay((fov * i/xResolution + xDir), (fov * j/yResolution + yDir));
 				if (distance == Double.POSITIVE_INFINITY || distance <= 0) {
-					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 1;
+					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1;
 				}
 				else {
-					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 1.0 / (Math.sqrt(distance));
+					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1.0 / (Math.sqrt(distance));
 				}
 			}
 		}
@@ -159,5 +159,25 @@ public class Renderer {
 
 	public double getZ() {
 		return z;
+	}
+
+	public void increaseResolution() {
+		this.xResolution += 5;
+		this.yResolution += 5;
+		screen = new double[(int)xResolution][(int)yResolution];
+		System.out.println("Increased resolution to " + xResolution + " x " + yResolution);
+	}
+
+	public void decreaseResolution() {
+		this.xResolution -= 5;
+		this.yResolution -= 5;
+		if(this.xResolution < 10) {
+			this.xResolution = 10;
+		}
+		if(this.yResolution < 10) {
+			this.yResolution = 10;
+		}
+		screen = new double[(int)xResolution][(int)yResolution];
+		System.out.println("Decreased resolution to " + xResolution + " x " + yResolution);
 	}
 }
