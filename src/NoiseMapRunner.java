@@ -3,6 +3,8 @@ public class NoiseMapRunner {
 		Renderer renderer = new Renderer(new NoiseMap(200, .5));
 		double moveSpeed = .1;
 		double turnSpeed = 2;
+		boolean onMap = false;
+		boolean debug = false;
 		while (true) { 					
 			if(StdDraw.hasNextKeyTyped()) {
 				char key = StdDraw.nextKeyTyped();
@@ -36,10 +38,18 @@ public class NoiseMapRunner {
 				if(key == 's') {
 					renderer.moveBackward(moveSpeed);
 				}
+				if(key == 'm') {
+					onMap = !onMap;
+				}
+				if(key == 'p') {
+					debug = !debug;
+				}
 			}
 			renderer.updateScreen();
-			renderer.renderScreen();
-			System.out.println("X: " + renderer.getX() + " Y: " + renderer.getY() + " Z: " + renderer.getZ() + "xDir: " + renderer.getXDir() + " yDir: " + renderer.getYDir());
+			renderer.renderScreen(onMap);
+			if(debug) {
+				System.out.println("X: " + renderer.getX() + " Y: " + renderer.getY() + " Z: " + renderer.getZ() + "xDir: " + renderer.getXDir() + " yDir: " + renderer.getYDir());
+			}
 		}
 
 

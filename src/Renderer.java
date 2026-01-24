@@ -61,20 +61,26 @@ public class Renderer {
 		this.yDir -= angle;
 	}
 
-	public void renderScreen() {
-		StdDraw.enableDoubleBuffering();
-		for(int i = 0; i < xRESOLUTION; i++) {
-			for(int j = 0; j < yRESOLUTION; j++) {
-				int shade = (int)(255 * screen[i][j]);
-				if(shade > 255) {
-					shade = 255;
+	public void renderScreen(boolean onMap) {
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.filledSquare(.5, .5, .5);
+		if(onMap) {
+			drawMap();
+		} else {
+			StdDraw.enableDoubleBuffering();
+			for(int i = 0; i < xRESOLUTION; i++) {
+				for(int j = 0; j < yRESOLUTION; j++) {
+					int shade = (int)(255 * screen[i][j]);
+					if(shade > 255) {
+						shade = 255;
+					}
+					StdDraw.setPenColor(shade, shade, shade);
+					StdDraw.setPenRadius(1.0 / xRESOLUTION);
+					StdDraw.point((double)i/xRESOLUTION + (double)1/(xRESOLUTION * 2), (double)j/yRESOLUTION + (double)1/(yRESOLUTION * 2));
 				}
-				StdDraw.setPenColor(shade, shade, shade);
-				StdDraw.setPenRadius(1.0 / xRESOLUTION);
-				StdDraw.point((double)i/xRESOLUTION + (double)1/(xRESOLUTION * 2), (double)j/yRESOLUTION + (double)1/(yRESOLUTION * 2));
 			}
-		}
-		StdDraw.show();
+			StdDraw.show();
+	}
 	}
 	
 	public void updateScreen() {
@@ -82,15 +88,15 @@ public class Renderer {
 			for(int j = (int) -yRESOLUTION/2; j < (int) yRESOLUTION/2; j++) {
 				double distance = castRay((FOV * i/xRESOLUTION + xDir), (FOV * j/yRESOLUTION + yDir));
 				if (distance == Double.POSITIVE_INFINITY || distance <= 0) {
-					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 0;
+					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 1;
 				}
 				else {
-					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 1.0 / distance;
+					screen[i + (int)xRESOLUTION/2][j + (int)yRESOLUTION/2] = 1.0 / (Math.sqrt(distance));
 				}
 			}
 		}
 	}
-	
+
 	public double castRay(double yawDeg, double pitchDeg) {
 		double yaw   = Math.toRadians(yawDeg);
 		double pitch = Math.toRadians(pitchDeg);
@@ -124,6 +130,15 @@ public class Renderer {
 			}
 		}
 		return maxDist;
+	}
+
+	public void drawMap() {
+		StdDraw.enableDoubleBuffering();
+		terrain.drawNoiseMap();
+		StdDraw.setPenColor(StdDraw.RED);
+		StdDraw.setPenRadius((double) 5/terrain.getResolution());
+		StdDraw.point(x/terrain.getResolution(), y/terrain.getResolution());
+		StdDraw.show();
 	}
 
 	public double getXDir() {
