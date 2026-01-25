@@ -1,6 +1,6 @@
 
 public class Renderer {
-	private NoiseMap terrain;
+	private final NoiseMap terrain;
 	private double xDir;
 	private double yDir;
 	private double x;
@@ -196,5 +196,14 @@ public class Renderer {
 
 	public void increaseFOV(double amount) {
 		this.fov += amount;
+	}
+
+	public double getCurrentHeight() {
+		int gridX = (int) x;
+		int gridY = (int) y;
+		if(gridX < 0 || gridY < 0 || gridX >= terrain.getResolution() || gridY >= terrain.getResolution()) {
+			return 0;
+		}
+		return terrain.getHeightAt(gridX, gridY);
 	}
 }

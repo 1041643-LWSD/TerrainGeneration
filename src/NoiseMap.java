@@ -1,6 +1,6 @@
 public class NoiseMap {
-	private double[][] map;
-	private int resolution;
+	private final double[][] map;
+	private final int resolution;
 	
 	public NoiseMap (int resolution, double gradient) {
 		map = new double[resolution][resolution];
