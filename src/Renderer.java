@@ -17,7 +17,7 @@ public class Renderer {
 		this.yDir = 0;
 		this.x = 0;
 		this.y = 0;
-		this.z = 0;	
+		this.z = terrain.getHeightAt((int) x, (int) y);
 		screen = new double[(int)xResolution][(int)yResolution];
 	}
 
@@ -161,16 +161,9 @@ public class Renderer {
 		return z;
 	}
 
-	public void increaseResolution() {
-		this.xResolution += 5;
-		this.yResolution += 5;
-		screen = new double[(int)xResolution][(int)yResolution];
-		System.out.println("Increased resolution to " + xResolution + " x " + yResolution);
-	}
-
-	public void decreaseResolution() {
-		this.xResolution -= 5;
-		this.yResolution -= 5;
+	public void changeResolution(int n) {
+		this.xResolution += n;
+		this.yResolution += n;
 		if(this.xResolution < 10) {
 			this.xResolution = 10;
 		}
@@ -181,17 +174,12 @@ public class Renderer {
 		System.out.println("Decreased resolution to " + xResolution + " x " + yResolution);
 	}
 
-	public void increaseFOV() {
-		this.fov += 5;
-		System.out.println("Increased FOV to " + fov);
-	}
-
-	public void decreaseFOV() {
-		this.fov -= 5;
+	public void changeFOV(int n) {
+		this.fov += n;
 		if(this.fov < 10) {
 			this.fov = 10;
 		}
-		System.out.println("Decreased FOV to " + fov);
+		System.out.println("Increased FOV to " + fov);
 	}
 
 	public void increaseFOV(double amount) {

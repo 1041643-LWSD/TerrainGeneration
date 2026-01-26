@@ -1,7 +1,7 @@
 public class NoiseMapRunner {
 	public static void main(String[] args) {
 		Renderer renderer = new Renderer(new NoiseMap(200, .5));
-		double moveSpeed = .1;
+		double moveSpeed = .2;
 		double turnSpeed = 2;
 		boolean onMap = false;
 		boolean debug = false;
@@ -45,15 +45,15 @@ public class NoiseMapRunner {
 					debug = !debug;
 				}
 				if(key == '1') {
-					renderer.increaseResolution();
+					renderer.changeResolution(5);
 				} if(key == '2') {
-					renderer.decreaseResolution();
+					renderer.changeResolution(-5);
 				}
 				if(key == 'z') {
-					renderer.increaseFOV();
+					renderer.changeFOV(5);
 				}
 				if(key == 'x') {
-					renderer.decreaseFOV();
+					renderer.changeFOV(-5);
 				}
 			}
 			renderer.updateScreen();
