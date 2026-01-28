@@ -5,11 +5,21 @@ public class NoiseMapRunner {
 		double turnSpeed = 2;
 		boolean onMap = false;
 		boolean debug = false;
-		while (true) { 					
+		double yVel = 0;
+		double playerHeight = .5;
+		while (true) { 		
+			if(renderer.getZ() > renderer.getCurrentHeight() + playerHeight) {
+				yVel -= .02;
+			}
+			renderer.setZ(renderer.getZ() + yVel);
+			if(renderer.getZ() < renderer.getCurrentHeight()) {
+				renderer.setZ(renderer.getCurrentHeight() + playerHeight);
+				yVel = 0;
+			}
 			if(StdDraw.hasNextKeyTyped()) {
 				char key = StdDraw.nextKeyTyped();
-				if(key == 'q') {
-					renderer.moveUp(moveSpeed);
+				if(key == 'q' && yVel == 0) {
+					yVel += .1;
 				}
 				if(key == 'e') {
 					renderer.moveDown(moveSpeed);
