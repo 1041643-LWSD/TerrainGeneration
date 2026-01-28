@@ -65,6 +65,22 @@ public class Renderer {
 		this.z = n;
 	}
 
+	public void setX(double n) {
+		this.x = n;
+	}
+
+	public void setY(double n) {
+		this.y = n;
+	}
+
+	public void setXDir(double n) {
+		this.xDir = n;
+	}
+
+	public void setYDir(double n) {
+		this.yDir = n;
+	}
+
 	public void renderScreen(boolean onMap) {
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.filledSquare(.5, .5, .5);

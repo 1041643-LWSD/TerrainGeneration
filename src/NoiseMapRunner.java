@@ -9,10 +9,10 @@ public class NoiseMapRunner {
 		double playerHeight = .5;
 		while (true) { 		
 			if(renderer.getZ() > renderer.getCurrentHeight() + playerHeight) {
-				yVel -= .02;
+				yVel -= .01;
 			}
 			renderer.setZ(renderer.getZ() + yVel);
-			if(renderer.getZ() < renderer.getCurrentHeight()) {
+			if(renderer.getZ() < renderer.getCurrentHeight() + playerHeight) {
 				renderer.setZ(renderer.getCurrentHeight() + playerHeight);
 				yVel = 0;
 			}
