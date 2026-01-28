@@ -60,6 +60,10 @@ public class Renderer {
 	public void turnDown(double angle) {
 		this.yDir -= angle;
 	}
+	
+	public void setZ(double n) {
+		this.z = n;
+	}
 
 	public void renderScreen(boolean onMap) {
 		StdDraw.setPenColor(StdDraw.BLACK);
