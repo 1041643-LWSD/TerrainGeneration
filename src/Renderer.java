@@ -10,6 +10,7 @@ public class Renderer {
 	private double yResolution = 120;
 	private double fov = 120;
 	private double[][] screen;
+	private double renderDistance = 20;
 	
 	public Renderer(NoiseMap terrain) {
 		this.terrain = terrain;
@@ -94,7 +95,11 @@ public class Renderer {
 					if(shade > 255) {
 						shade = 255;
 					}
-					StdDraw.setPenColor(shade, shade, shade);
+					if(shade < renderDistance) {
+						StdDraw.setPenColor(0, 100, 255);
+					} else {
+						StdDraw.setPenColor(shade, shade, shade);
+					}
 					StdDraw.setPenRadius(1.0 / xResolution);
 					StdDraw.filledSquare((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2), 1/xResolution);
 				}
@@ -199,7 +204,7 @@ public class Renderer {
 		if(this.fov < 10) {
 			this.fov = 10;
 		}
-		System.out.println("Increased FOV to " + fov);
+		System.out.println("Changed FOV to " + fov);
 	}
 
 	public void increaseFOV(double amount) {
