@@ -95,11 +95,7 @@ public class Renderer {
 					if(shade > 255) {
 						shade = 255;
 					}
-					if(shade < renderDistance) {
-						StdDraw.setPenColor(0, 100, 255);
-					} else {
-						StdDraw.setPenColor(shade, shade, shade);
-					}
+					StdDraw.setPenColor(shade, shade, shade);
 					StdDraw.setPenRadius(1.0 / xResolution);
 					StdDraw.filledSquare((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2), 1/xResolution);
 				}
