@@ -11,6 +11,9 @@ public class Renderer {
 	private double fov = 120;
 	private double[][] screen;
 	private double renderDistance = 20;
+	private boolean fps = false;
+	private long lastFrameTime = System.currentTimeMillis();
+	private int fpsValue = 0;
 	
 	public Renderer(NoiseMap terrain) {
 		this.terrain = terrain;
@@ -83,6 +86,7 @@ public class Renderer {
 	}
 
 	public void renderScreen(boolean onMap) {
+		double currentTime = System.currentTimeMillis();
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.filledSquare(.5, .5, .5);
 		if(onMap) {
@@ -99,6 +103,11 @@ public class Renderer {
 					StdDraw.setPenRadius(1.0 / xResolution);
 					StdDraw.filledSquare((double)i/xResolution + (double)1/(xResolution * 2), (double)j/yResolution + (double)1/(yResolution * 2), 1/xResolution);
 				}
+			}
+			if(fps) {
+				updateFPS();
+				StdDraw.setPenColor(StdDraw.WHITE);
+				StdDraw.textLeft(0.01, 0.98, "FPS: " + fpsValue);
 			}
 			StdDraw.show();
 		}
@@ -215,4 +224,16 @@ public class Renderer {
 		}
 		return terrain.getHeightAt(gridX, gridY);
 	}
+
+	public void updateFPS() {
+    long now = System.currentTimeMillis();
+    long delta = now - lastFrameTime;
+
+    if (delta > 0) {
+        fpsValue = (int)(1000.0 / delta);
+    }
+
+    lastFrameTime = now;
+}
+
 }
