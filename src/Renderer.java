@@ -10,8 +10,7 @@ public class Renderer {
 	private double yResolution = 120;
 	private double fov = 120;
 	private double[][] screen;
-	private double renderDistance = 20;
-	private boolean fps = false;
+	private boolean fps = true;
 	private long lastFrameTime = System.currentTimeMillis();
 	private int fpsValue = 0;
 	
@@ -23,6 +22,11 @@ public class Renderer {
 		this.y = 0;
 		this.z = terrain.getHeightAt((int) x, (int) y);
 		screen = new double[(int)xResolution][(int)yResolution];
+	}
+
+	public boolean changeFPS() {
+		this.fps = !this.fps;
+		return this.fps;
 	}
 
 	public void moveUp(double distance) {
