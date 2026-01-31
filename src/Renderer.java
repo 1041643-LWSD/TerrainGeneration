@@ -13,6 +13,7 @@ public class Renderer {
 	private boolean fps = true;
 	private long lastFrameTime = System.currentTimeMillis();
 	private int fpsValue = 0;
+	double heightFactor = 2.0;
 	
 	public Renderer(NoiseMap terrain) {
 		this.terrain = terrain;
@@ -90,7 +91,6 @@ public class Renderer {
 	}
 
 	public void renderScreen(boolean onMap) {
-		double currentTime = System.currentTimeMillis();
 		StdDraw.setPenColor(StdDraw.BLACK);
 		StdDraw.filledSquare(.5, .5, .5);
 		if(onMap) {
@@ -159,7 +159,7 @@ public class Renderer {
 				gy >= terrain.getResolution())
 				return maxDist;
 
-			if (rz <= terrain.getHeightAt(gx, gy)) {
+			if (rz <= terrain.getHeightAt(gx, gy) * heightFactor) {
 				return dist;
 			}
 		}
@@ -173,6 +173,10 @@ public class Renderer {
 		StdDraw.setPenRadius((double) 3/terrain.getResolution());
 		StdDraw.point(x/terrain.getResolution(), y/terrain.getResolution());
 		StdDraw.show();
+	}
+
+	public void setHeightFactor(double factor) {
+		this.heightFactor = factor;
 	}
 
 	public double getXDir() {

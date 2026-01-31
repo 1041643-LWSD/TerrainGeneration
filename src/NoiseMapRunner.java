@@ -14,16 +14,16 @@ public class NoiseMapRunner {
 		double newMouseX = 0;
 		double newMouseY = 0;
 		double sensitivity = 150;
-		boolean fps = true;
-		double currentTime = System.currentTimeMillis();
 		StdDraw.enableDoubleBuffering();
+		double heightFactor = 5.0;
+		renderer.setHeightFactor(heightFactor);
 		while (true) {
-			if(renderer.getZ() > renderer.getCurrentHeight() + playerHeight) {
+			if(renderer.getZ() > renderer.getCurrentHeight() * heightFactor + playerHeight) {
 				yVel -= .01;
 			}
 			renderer.setZ(renderer.getZ() + yVel);
-			if(renderer.getZ() < renderer.getCurrentHeight() + playerHeight) {
-				renderer.setZ(renderer.getCurrentHeight() + playerHeight);
+			if(renderer.getZ() < renderer.getCurrentHeight() * heightFactor + playerHeight) {
+				renderer.setZ(renderer.getCurrentHeight() * heightFactor + playerHeight);
 				yVel = 0;
 			}
 			if(StdDraw.isKeyPressed(KeyEvent.VK_SPACE) && yVel == 0) {
