@@ -125,7 +125,7 @@ public class Renderer {
 					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1;
 				}
 				else {
-					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1.0 / (distance);
+					screen[i + (int)xResolution/2][j + (int)yResolution/2] = 1.0 / Math.sqrt(distance);
 				}
 			}
 		}
