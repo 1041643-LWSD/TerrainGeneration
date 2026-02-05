@@ -15,7 +15,7 @@ public class NoiseMapRunner {
 		double newMouseY = 0;
 		double sensitivity = 150;
 		StdDraw.enableDoubleBuffering();
-		double heightFactor = 5.0;
+		double heightFactor = 10;
 		renderer.setHeightFactor(heightFactor);
 		while (true) {
 			if(renderer.getZ() > renderer.getCurrentHeight() * heightFactor + playerHeight) {
@@ -27,7 +27,7 @@ public class NoiseMapRunner {
 				yVel = 0;
 			}
 			if(StdDraw.isKeyPressed(KeyEvent.VK_SPACE) && yVel == 0) {
-				yVel += .1;
+				yVel += .12;
 			}
 			if(StdDraw.isKeyPressed(KeyEvent.VK_W)) {
 				renderer.moveRight(moveSpeed * Math.cos(renderer.getXDir() * Math.PI / 180));
@@ -62,6 +62,12 @@ public class NoiseMapRunner {
 				newMouseY = StdDraw.mouseY();
 				renderer.turnRight((newMouseX - mouseX) * sensitivity);
 				renderer.turnUp((newMouseY - mouseY) * sensitivity);
+			}
+			if(StdDraw.isKeyPressed(KeyEvent.VK_E)) {
+				renderer.setHeightAtCurrentPosition(renderer.getCurrentHeight() + .01);
+			}
+			if(StdDraw.isKeyPressed(KeyEvent.VK_Q)) {
+				renderer.setHeightAtCurrentPosition(renderer.getCurrentHeight() - .01);
 			}
 			mouseX = StdDraw.mouseX();
 			mouseY = StdDraw.mouseY();

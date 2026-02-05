@@ -56,4 +56,14 @@ public class NoiseMap {
 	public int getResolution() {
 		return resolution;
 	}
+
+	public void setHeightAt(int x, int y, double height) {
+		map[x][y] = height;
+		if(height > 1) {
+			map[x][y] = 1;
+		}
+		if(height < 0) {
+			map[x][y] = 0;
+		}
+	}
 }

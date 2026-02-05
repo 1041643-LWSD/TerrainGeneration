@@ -13,7 +13,7 @@ public class Renderer {
 	private boolean fps = true;
 	private long lastFrameTime = System.currentTimeMillis();
 	private int fpsValue = 0;
-	double heightFactor = 2.0;
+	double heightFactor = 1.0;
 	
 	public Renderer(NoiseMap terrain) {
 		this.terrain = terrain;
@@ -234,14 +234,22 @@ public class Renderer {
 	}
 
 	public void updateFPS() {
-    long now = System.currentTimeMillis();
-    long delta = now - lastFrameTime;
+		long now = System.currentTimeMillis();
+		long delta = now - lastFrameTime;
 
-    if (delta > 0) {
-        fpsValue = (int)(1000.0 / delta);
-    }
+		if (delta > 0) {
+			fpsValue = (int)(1000.0 / delta);
+		}
 
-    lastFrameTime = now;
-}
+		lastFrameTime = now;
+	}
 
+	public void setHeightAtCurrentPosition(double height) {
+		int gridX = (int) x;
+		int gridY = (int) y;
+		if(gridX < 0 || gridY < 0 || gridX >= terrain.getResolution() || gridY >= terrain.getResolution()) {
+			return;
+		}
+		terrain.setHeightAt(gridX, gridY, height);
+	}
 }
